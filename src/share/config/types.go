@@ -3,14 +3,12 @@ package config
 import "time"
 
 type Config struct {
-	Server   ServerConfig
-	Mongo MongoConfig
-	Redis    RedisConfig
-	Password PasswordConfig
-	Cors     CorsConfig
-	Logger   LoggerConfig
-	Otp      OtpConfig
-	JWT      JWTConfig
+	Server ServerConfig
+	Mongo  MongoConfig
+	Redis  RedisConfig
+	Cors   CorsConfig
+	Logger LoggerConfig
+	JWT    JWTConfig
 }
 
 type ServerConfig struct {
@@ -51,12 +49,9 @@ type RedisConfig struct {
 	PoolTimeout        time.Duration
 }
 
-
-
 type CorsConfig struct {
 	AllowOrigins string
 }
-
 
 type JWTConfig struct {
 	AccessTokenExpireDuration  time.Duration

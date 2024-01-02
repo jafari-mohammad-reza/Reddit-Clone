@@ -1,4 +1,4 @@
-package logger
+package custome_logger
 
 type Category string
 type SubCategory string
@@ -8,7 +8,7 @@ const (
 	General    Category = "General"
 	IO         Category = "IO"
 	Internal   Category = "Internal"
-	Mongo   Category = "Mongo"
+	Mongo      Category = "Mongo"
 	Redis      Category = "Redis"
 	Validation Category = "Validation"
 	API        Category = "API"

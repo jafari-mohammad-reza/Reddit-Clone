@@ -1,4 +1,4 @@
-package logger
+package custome_logger
 
 func logParamsToZapParams(keys map[ExtraKey]interface{}) []interface{} {
 	params := make([]interface{}, 0, len(keys))

@@ -3,6 +3,7 @@ package custome_logger
 import (
 	"fmt"
 	"github.com/google/uuid"
+	"github.com/reddit-clone/src/share/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -43,7 +44,7 @@ func (l *zapLogger) getLogLevel() zapcore.Level {
 
 func (l *zapLogger) Init() {
 	once.Do(func() {
-		// File logger setup for JSON format
+		// File custome_logger setup for JSON format
 		fileName := fmt.Sprintf("%s%s-%s.%s", l.cfg.Logger.FilePath, time.Now().Format("2006-01-02"), uuid.New(), "log")
 		fileSyncer := zapcore.AddSync(&lumberjack.Logger{
 			Filename:   fileName,
@@ -55,7 +56,7 @@ func (l *zapLogger) Init() {
 		})
 		jsonEncoder := zapcore.NewJSONEncoder(zap.NewProductionEncoderConfig())
 
-		// Console logger setup for human-readable format
+		// Console custome_logger setup for human-readable format
 		consoleSyncer := zapcore.AddSync(os.Stdout)
 		consoleEncoder := zapcore.NewConsoleEncoder(zap.NewDevelopmentEncoderConfig())
 

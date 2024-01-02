@@ -1,4 +1,7 @@
-package logger
+package custome_logger
+
+import "github.com/reddit-clone/src/share/config"
+
 type Logger interface {
 	Init()
 
