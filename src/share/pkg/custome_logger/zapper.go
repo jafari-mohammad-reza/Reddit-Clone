@@ -2,7 +2,6 @@ package custome_logger
 
 import (
 	"fmt"
-	"github.com/google/uuid"
 	"github.com/reddit-clone/src/share/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -28,24 +27,10 @@ var zapLogLevelMapping = map[string]zapcore.Level{
 	"fatal": zapcore.FatalLevel,
 }
 
-func newZapLogger(cfg *config.Config) *zapLogger {
-	logger := &zapLogger{cfg: cfg}
-	logger.Init()
-	return logger
-}
-
-func (l *zapLogger) getLogLevel() zapcore.Level {
-	level, exists := zapLogLevelMapping[l.cfg.Logger.Level]
-	if !exists {
-		return zapcore.DebugLevel
-	}
-	return level
-}
-
 func (l *zapLogger) Init() {
 	once.Do(func() {
-		// File custome_logger setup for JSON format
-		fileName := fmt.Sprintf("%s%s-%s.%s", l.cfg.Logger.FilePath, time.Now().Format("2006-01-02"), uuid.New(), "log")
+
+		fileName := fmt.Sprintf("%s%s.%s", l.cfg.Logger.FilePath, time.Now().Format("2006-01-02"), "log")
 		fileSyncer := zapcore.AddSync(&lumberjack.Logger{
 			Filename:   fileName,
 			MaxSize:    1,
@@ -56,11 +41,9 @@ func (l *zapLogger) Init() {
 		})
 		jsonEncoder := zapcore.NewJSONEncoder(zap.NewProductionEncoderConfig())
 
-		// Console custome_logger setup for human-readable format
 		consoleSyncer := zapcore.AddSync(os.Stdout)
 		consoleEncoder := zapcore.NewConsoleEncoder(zap.NewDevelopmentEncoderConfig())
 
-		// Setting up multi-level logging
 		core := zapcore.NewTee(
 			zapcore.NewCore(jsonEncoder, fileSyncer, l.getLogLevel()),
 			zapcore.NewCore(consoleEncoder, consoleSyncer, l.getLogLevel()),
@@ -77,6 +60,20 @@ func (l *zapLogger) Init() {
 	})
 
 	l.logger = zapSinLogger
+}
+
+func newZapLogger(cfg *config.Config) *zapLogger {
+	logger := &zapLogger{cfg: cfg}
+	logger.Init()
+	return logger
+}
+
+func (l *zapLogger) getLogLevel() zapcore.Level {
+	level, exists := zapLogLevelMapping[l.cfg.Logger.Level]
+	if !exists {
+		return zapcore.DebugLevel
+	}
+	return level
 }
 
 func (l *zapLogger) Debug(cat Category, sub SubCategory, msg string, extra map[ExtraKey]interface{}) {
