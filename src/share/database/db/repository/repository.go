@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 	"errors"
-	"github.com/reddit-clone/src/share/pkg"
+	"github.com/reddit-clone/src/share/common"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -26,7 +26,7 @@ func (m *MongoDbAbstractRepository[T]) Create(ctx context.Context, entity any) e
 }
 
 func (m *MongoDbAbstractRepository[T]) Update(ctx context.Context, id string, update any) error {
-	obi, err := pkg.StringToObjectId(id)
+	obi, err := common.StringToObjectId(id)
 	if err != nil {
 		return err
 	}
@@ -36,7 +36,7 @@ func (m *MongoDbAbstractRepository[T]) Update(ctx context.Context, id string, up
 }
 
 func (m *MongoDbAbstractRepository[T]) Delete(ctx context.Context, id string) error {
-	obi, err := pkg.StringToObjectId(id)
+	obi, err := common.StringToObjectId(id)
 	if err != nil {
 		return err
 	}
@@ -75,7 +75,7 @@ func (m *MongoDbAbstractRepository[T]) Drop(ctx context.Context) error {
 	return nil
 }
 func (m *MongoDbAbstractRepository[T]) GetById(ctx context.Context, id string) (T, error) {
-	obi, err := pkg.StringToObjectId(id)
+	obi, err := common.StringToObjectId(id)
 	if err != nil {
 		return zero((*T)(nil)), err
 	}

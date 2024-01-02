@@ -13,10 +13,10 @@ var redisClient *redis.Client
 
 func InitRedis(cfg *config.Config) (context.CancelFunc, error) {
 	ctx, cancel := context.WithTimeout(context.TODO(), time.Millisecond*cfg.Redis.IdleCheckFrequency)
+	fmt.Println(fmt.Sprintf("%s:%s", cfg.Redis.Host, cfg.Redis.Port))
 	redisClient = redis.NewClient(&redis.Options{
 		Addr:         fmt.Sprintf("%s:%s", cfg.Redis.Host, cfg.Redis.Port),
 		DB:           cfg.Redis.Db,
-		Password:     cfg.Redis.Password,
 		DialTimeout:  cfg.Redis.DialTimeout * time.Second,
 		ReadTimeout:  cfg.Redis.ReadTimeout * time.Second,
 		WriteTimeout: cfg.Redis.WriteTimeout * time.Second,

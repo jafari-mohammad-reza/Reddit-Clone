@@ -10,7 +10,7 @@ logger:
 cors:
   allowOrigins: "*"
 mongo:
-  host: localhost
+  host: mongodb_container
   port: 27017
   user: admin
   password: admin
@@ -20,8 +20,8 @@ mongo:
   maxOpenConns: 100
   connMaxLifetime: 5
 redis:
-  host: localhost
-  port: 6380
+  host: redis_container
+  port: 6379
   password: password
   db: 0
   dialTimeout: 5
