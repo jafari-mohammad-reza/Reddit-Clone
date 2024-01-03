@@ -6,3 +6,59 @@
 ![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
 ![RabbitMQ](https://img.shields.io/badge/RabbitMQ-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+--
+
+## Overview
+
+### Redit clone backend application developed using golang a& gin, documented using swagger
+
+## How to test
+
+```
+git clone https://github.com/jafari-mohammad-reza/reddit-clone && cd reddit-clone
+
+```
+
+- **Using Docker**:
+
+```
+docker-compose up -d
+```
+
+- **Using golang bin**:
+
+```
+go mod download && make run
+```
+
+## Development
+
+```
+git clone https://github.com/jafari-mohammad-reza/reddit-clone && cd reddit-clone
+```
+
+- **Install Dependencies**:
+
+```
+go mod download.
+```
+
+- **Install Reflex**:
+
+```
+go install github.com/cespare/reflex@latest
+```
+
+- **Run Dev mode**:
+
+```
+make dev
+```
+
+**OR** for using docker
+
+```
+make run docker-dev
+```
+
+--

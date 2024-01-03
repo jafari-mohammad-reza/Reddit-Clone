@@ -1,0 +1,34 @@
+version: "3.8"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    ports:
+      - "5050:5050"
+    environment:
+      - .=/app
+    depends_on:
+      - mongodb
+  mongodb:
+    image: mongo:focal
+    container_name: mongodb_container
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+      - MONGO_INITDB_DATABASE=reddit-clone
+    volumes:
+      - mongodb:/data/db
+  redis:
+    image: redis:latest
+    container_name: redis_container
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis:/etc/redis
+volumes:
+  mongodb:
+  redis:
