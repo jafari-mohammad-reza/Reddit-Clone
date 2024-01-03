@@ -4,16 +4,16 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"time"
+
 	"github.com/reddit-clone/src/share/config"
 	"github.com/redis/go-redis/v9"
-	"time"
 )
 
 var redisClient *redis.Client
 
 func InitRedis(cfg *config.Config) (context.CancelFunc, error) {
 	ctx, cancel := context.WithTimeout(context.TODO(), time.Millisecond*cfg.Redis.IdleCheckFrequency)
-	fmt.Println(fmt.Sprintf("%s:%s", cfg.Redis.Host, cfg.Redis.Port))
 	redisClient = redis.NewClient(&redis.Options{
 		Addr:         fmt.Sprintf("%s:%s", cfg.Redis.Host, cfg.Redis.Port),
 		DB:           cfg.Redis.Db,

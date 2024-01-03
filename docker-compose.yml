@@ -1,6 +1,7 @@
 version: "3.8"
 services:
   api:
+    container_name: reddit_clone
     build:
       context: .
       dockerfile: Dockerfile
@@ -8,7 +9,7 @@ services:
     ports:
       - "5050:5050"
     environment:
-      - .=/app
+      - .:/app
     depends_on:
       - mongodb
   mongodb:
