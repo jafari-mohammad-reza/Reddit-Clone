@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/reddit-clone/src/share/pkg/custome_logger"
 	"time"
 
 	"github.com/reddit-clone/src/share/config"
@@ -12,7 +13,7 @@ import (
 
 var redisClient *redis.Client
 
-func InitRedis(cfg *config.Config) (context.CancelFunc, error) {
+func InitRedis(cfg *config.Config, lg custome_logger.Logger) (context.CancelFunc, error) {
 	ctx, cancel := context.WithTimeout(context.TODO(), time.Millisecond*cfg.Redis.IdleCheckFrequency)
 	redisClient = redis.NewClient(&redis.Options{
 		Addr:         fmt.Sprintf("%s:%s", cfg.Redis.Host, cfg.Redis.Port),
@@ -25,7 +26,7 @@ func InitRedis(cfg *config.Config) (context.CancelFunc, error) {
 	})
 
 	_, err := redisClient.Ping(ctx).Result()
-
+	lg.Info(custome_logger.Redis, custome_logger.Connect, "Redis connected", nil)
 	if err != nil {
 
 		return cancel, err

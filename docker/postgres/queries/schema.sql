@@ -1,8 +1,14 @@
 
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'reaction_type') THEN
 CREATE TYPE reaction_type AS ENUM ('like', 'dislike');
+END IF;
+END
+$$;
 
 
-CREATE TABLE "user" (
+CREATE TABLE  IF NOT EXISTS  "user" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR UNIQUE,
     "email" VARCHAR UNIQUE,
@@ -15,7 +21,7 @@ CREATE INDEX idx_user_username ON "user" ("username");
 CREATE INDEX idx_user_email ON "user" ("email");
 
 
-CREATE TABLE "subreddit" (
+CREATE TABLE  IF NOT EXISTS  "subreddit" (
     "id" SERIAL PRIMARY KEY,
     "name" VARCHAR UNIQUE,
     "description" TEXT,
@@ -29,7 +35,7 @@ CREATE INDEX idx_subreddit_name ON "subreddit" ("name");
 CREATE INDEX idx_subreddit_name ON "subreddit" ("category");
 
 
-CREATE TABLE "post" (
+CREATE TABLE  IF NOT EXISTS  "post" (
     "id" SERIAL PRIMARY KEY,
     "title" VARCHAR,
     "body" TEXT,
@@ -45,7 +51,7 @@ CREATE INDEX idx_post_subreddit ON "post" ("subreddit_id");
 CREATE INDEX idx_post_view_count ON "post" ("view_count");
 
 
-CREATE TABLE "post_reaction" (
+CREATE TABLE  IF NOT EXISTS  "post_reaction" (
     "id" SERIAL PRIMARY KEY,
     "post_id" INTEGER,
     "user_id" INTEGER,
@@ -59,7 +65,7 @@ CREATE INDEX idx_post_reaction_user ON "post_reaction" ("user_id");
 CREATE INDEX idx_post_reaction_type ON "post_reaction" ("reaction");
 
 
-CREATE TABLE "comment" (
+CREATE TABLE  IF NOT EXISTS  "comment" (
     "id" SERIAL PRIMARY KEY,
     "post_id" INTEGER,
     "parent_comment_id" INTEGER,
@@ -77,7 +83,7 @@ CREATE INDEX idx_comment_user ON "comment" ("user_id");
 CREATE INDEX idx_comment_view_count ON "comment" ("view_count");
 
 
-CREATE TABLE "comment_reaction" (
+CREATE TABLE  IF NOT EXISTS  "comment_reaction" (
     "id" SERIAL PRIMARY KEY,
     "comment_id" INTEGER,
     "user_id" INTEGER,
@@ -91,7 +97,7 @@ CREATE INDEX idx_comment_reaction_user ON "comment_reaction" ("user_id");
 CREATE INDEX idx_comment_reaction_type ON "comment_reaction" ("reaction");
 
 
-CREATE TABLE "user_follower" (
+CREATE TABLE  IF NOT EXISTS  "user_follower" (
     "id" SERIAL PRIMARY KEY,
     "user_id" INTEGER,
     "follower_id" INTEGER,

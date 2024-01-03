@@ -19,6 +19,17 @@ mongo:
   maxIdleConns: 15
   maxOpenConns: 100
   connMaxLifetime: 5
+postgres:
+  host: postgres_container
+  port: 5432
+  user: admin
+  password: admin
+  dbName: reddit-clone
+  sslMode: disable
+  maxIdleConns: 15
+  maxOpenConns: 100
+  connMaxLifetime: 5
+  maxIdleConnsTime: 10
 redis:
   host: redis_container
   port: 6379
