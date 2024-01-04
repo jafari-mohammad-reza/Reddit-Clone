@@ -3,21 +3,24 @@ package postgres
 import (
 	"database/sql"
 	"fmt"
+	"strconv"
+	"time"
+
 	_ "github.com/lib/pq"
 	"github.com/reddit-clone/src/share/config"
 	"github.com/reddit-clone/src/share/pkg/custome_logger"
-	"time"
 )
 
 var pgClient *sql.DB
 
 func InitPostgres(cfg *config.Config, lg custome_logger.Logger) error {
 	var err error
+	port , _ :=strconv.Atoi(cfg.Postgres.Host)
 	url := fmt.Sprintf(
 		"sslmode=%s host=%s port=%d user=%s password=%s dbname=%s",
 		cfg.Postgres.SSLMode,
 		cfg.Postgres.Host,
-		cfg.Postgres.Port,
+		port,
 		cfg.Postgres.User,
 		cfg.Postgres.Password,
 		cfg.Postgres.DbName,
