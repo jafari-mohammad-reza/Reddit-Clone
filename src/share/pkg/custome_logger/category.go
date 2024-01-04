@@ -9,6 +9,7 @@ const (
 	IO         Category = "IO"
 	Internal   Category = "Internal"
 	Mongo      Category = "Mongo"
+	Postgres   Category = "Postgres"
 	Redis      Category = "Redis"
 	Validation Category = "Validation"
 	API        Category = "API"

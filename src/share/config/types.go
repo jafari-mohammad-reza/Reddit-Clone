@@ -3,12 +3,13 @@ package config
 import "time"
 
 type Config struct {
-	Server ServerConfig
-	Mongo  MongoConfig
-	Redis  RedisConfig
-	Cors   CorsConfig
-	Logger LoggerConfig
-	JWT    JWTConfig
+	Server   ServerConfig
+	Mongo    MongoConfig
+	Postgres PostgresConfig
+	Redis    RedisConfig
+	Cors     CorsConfig
+	Logger   LoggerConfig
+	JWT      JWTConfig
 }
 
 type ServerConfig struct {
@@ -34,6 +35,19 @@ type MongoConfig struct {
 	MaxIdleConns    int
 	MaxOpenConns    int
 	ConnMaxLifetime time.Duration
+}
+
+type PostgresConfig struct {
+	Host             string
+	Port             string
+	User             string
+	Password         string
+	DbName           string
+	SSLMode          string
+	MaxIdleConns     int
+	MaxIdleConnsTime int
+	MaxOpenConns     int
+	ConnMaxLifetime  time.Duration
 }
 
 type RedisConfig struct {
