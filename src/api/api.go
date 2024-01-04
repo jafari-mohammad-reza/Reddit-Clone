@@ -13,7 +13,7 @@ import (
 )
 
 var logger = custome_logger.NewLogger(config.GetConfig())
-
+var apiGroup *gin.RouterGroup
 func InitServer(cfg *config.Config) {
 	gin.SetMode(cfg.Server.RunMode)
 	r := gin.New()
@@ -24,13 +24,16 @@ func InitServer(cfg *config.Config) {
 	r.Run(fmt.Sprintf(":%s", cfg.Server.InternalPort))
 }
 
+func GetApiRoute() *gin.RouterGroup {
+	return apiGroup
+}
 func registerRoutes(r *gin.Engine, cfg *config.Config) {
 	api := r.Group("/api")
 	v1 := api.Group("/v1")
+	apiGroup = v1
 	v1.Use(middlewares.LoggerMiddleware(logger))
 	limiter := middlewares.NewLimmiterMiddlware(cfg)
 	v1.Use(limiter.RateLimiter())
-
 }
 
 

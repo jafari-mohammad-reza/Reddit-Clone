@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/reddit-clone/src/share/config"
+	"github.com/reddit-clone/src/share/pkg/custome_logger"
 	"github.com/redis/go-redis/v9"
 )
 
