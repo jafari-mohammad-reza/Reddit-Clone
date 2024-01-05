@@ -20,7 +20,7 @@ mongo:
   maxOpenConns: 100
   connMaxLifetime: 5
 postgres:
-  host: postgres_container
+  host: postgres
   port: 5432
   user: admin
   password: admin
@@ -31,8 +31,8 @@ postgres:
   connMaxLifetime: 5
   maxIdleConnsTime: 10
 rabbitMq:
-  host: postgres_container
-  port: 5432
+  host: rabbitmq_container
+  port: 5672
   user: admin
   password: admin
 redis:

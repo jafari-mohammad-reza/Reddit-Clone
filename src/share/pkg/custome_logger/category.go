@@ -36,6 +36,7 @@ const (
 	Close   SubCategory = "Close"
 	// RabitMq
 	CreateChannel SubCategory = "CreateChannel"
+	CreateQueue   SubCategory = "CreateQueue"
 	// Internal
 	HashPassword        SubCategory = "HashPassword"
 	DefaultRoleNotFound SubCategory = "DefaultRoleNotFound"

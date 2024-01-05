@@ -15,7 +15,7 @@ var pgClient *sql.DB
 
 func InitPostgres(cfg *config.Config, lg custome_logger.Logger) error {
 	var err error
-	port , _ :=strconv.Atoi(cfg.Postgres.Host)
+	port, _ := strconv.Atoi(cfg.Postgres.Port)
 	url := fmt.Sprintf(
 		"sslmode=%s host=%s port=%d user=%s password=%s dbname=%s",
 		cfg.Postgres.SSLMode,

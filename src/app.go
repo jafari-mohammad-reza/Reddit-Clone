@@ -19,10 +19,12 @@ func InitApp(cfg *config.Config, lg custome_logger.Logger) {
 	defer redisCancel()
 	if err != nil {
 		lg.Error(custome_logger.Redis, custome_logger.Connect, err.Error(), nil)
+		panic(err)
 	}
 	err = postgres.InitPostgres(cfg, lg)
 	if err != nil {
 		lg.Error(custome_logger.Postgres, custome_logger.Connect, err.Error(), nil)
+		panic(err)
 	}
 	queue.InitRabbitMq(cfg, lg)
 	defer queue.CloseRabbitConnection(lg)
