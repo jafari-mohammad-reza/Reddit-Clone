@@ -10,6 +10,7 @@ type Config struct {
 	Cors     CorsConfig
 	Logger   LoggerConfig
 	JWT      JWTConfig
+	RabbitMq RabbitMqConfig
 }
 
 type ServerConfig struct {
@@ -72,4 +73,11 @@ type JWTConfig struct {
 	RefreshTokenExpireDuration time.Duration
 	Secret                     string
 	RefreshSecret              string
+}
+
+type RabbitMqConfig struct {
+	Host     string
+	Port     string
+	User     string
+	Password string
 }

@@ -30,6 +30,11 @@ postgres:
   maxOpenConns: 100
   connMaxLifetime: 5
   maxIdleConnsTime: 10
+rabbitMq:
+  host: postgres_container
+  port: 5432
+  user: admin
+  password: admin
 redis:
   host: redis_container
   port: 6379

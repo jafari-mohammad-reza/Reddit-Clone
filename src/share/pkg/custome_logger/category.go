@@ -9,6 +9,7 @@ const (
 	IO         Category = "IO"
 	Internal   Category = "Internal"
 	Mongo      Category = "Mongo"
+	RabbitMq   Category = "RabbitMq"
 	Postgres   Category = "Postgres"
 	Redis      Category = "Redis"
 	Validation Category = "Validation"
@@ -33,6 +34,8 @@ const (
 	// Database
 	Connect SubCategory = "Connect"
 	Close   SubCategory = "Close"
+	// RabitMq
+	CreateChannel SubCategory = "CreateChannel"
 	// Internal
 	HashPassword        SubCategory = "HashPassword"
 	DefaultRoleNotFound SubCategory = "DefaultRoleNotFound"
