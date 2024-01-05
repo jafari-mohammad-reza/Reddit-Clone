@@ -2,7 +2,7 @@ package src
 
 import (
 	"github.com/reddit-clone/src/api"
-	user_domain "github.com/reddit-clone/src/domains/user-domain"
+	userdomain "github.com/reddit-clone/src/domains/user-domain"
 	"github.com/reddit-clone/src/share/config"
 	"github.com/reddit-clone/src/share/database/cache"
 	"github.com/reddit-clone/src/share/database/db/postgres"
@@ -11,7 +11,7 @@ import (
 )
 
 type AppModule struct {
-	UserDoamin *user_domain.UserDomain
+	UserDomain *userdomain.UserDomain
 }
 
 func InitApp(cfg *config.Config, lg custome_logger.Logger) {
@@ -30,5 +30,5 @@ func InitApp(cfg *config.Config, lg custome_logger.Logger) {
 	defer queue.CloseRabbitConnection(lg)
 	defer queue.CloseRabbitChanel(lg)
 	api.InitServer(cfg)
-	user_domain.NewUserDomain()
+	userdomain.NewUserDomain()
 }

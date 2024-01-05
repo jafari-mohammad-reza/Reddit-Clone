@@ -6,19 +6,20 @@ import (
 )
 
 type AuthenticationModule struct {
-	cfg *config.Config
-	service *AuthenticationService
+	cfg        *config.Config
+	service    *AuthenticationService
 	controller *AuthenticationController
 }
+
 func initRoutes(c *AuthenticationController) {
 	router := api.GetApiRoute()
 	authGroup := router.Group("/auth")
-	authGroup.GET("/login" , c.Login)
+	authGroup.GET("/login", c.Login)
 }
 func NewAuthentionModule() *AuthenticationModule {
 	cfg := config.GetConfig()
-	service:=NewAuthenticationService(cfg)
-	controller := NewAuthenticationController(cfg , service)
+	service := NewAuthenticationService(cfg)
+	controller := NewAuthenticationController(cfg, service)
 	initRoutes(controller)
 	return &AuthenticationModule{
 		cfg,
@@ -26,4 +27,3 @@ func NewAuthentionModule() *AuthenticationModule {
 		controller,
 	}
 }
-
