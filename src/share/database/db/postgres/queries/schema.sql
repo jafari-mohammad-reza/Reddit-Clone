@@ -19,6 +19,14 @@ CREATE TABLE  IF NOT EXISTS  "user" (
 );
 CREATE INDEX idx_user_username ON "user" ("username");
 CREATE INDEX idx_user_email ON "user" ("email");
+CREATE TABLE IF NOT EXISTS category (
+                                        id SERIAL PRIMARY KEY,
+                                        name VARCHAR(255) NOT NULL,
+                                        parent_category_id INTEGER NULL,
+                                        FOREIGN KEY (parent_category_id) REFERENCES category(id)
+);
+
+CREATE INDEX idx_category_name ON category(name);
 
 
 CREATE TABLE  IF NOT EXISTS  "subreddit" (

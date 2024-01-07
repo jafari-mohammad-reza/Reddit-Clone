@@ -58,3 +58,62 @@ func seedUsers(client *sql.DB) error {
 
 	return nil
 }
+
+func seedCategories(client *sql.DB) error {
+	categories := []models.Category{
+		{
+			Name: "Programming",
+		},
+		{
+			Name: "Game",
+		},
+		{
+			Name:           "Golang",
+			ParentCategory: &models.Category{Name: "Programming"},
+		},
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	// Start a transaction
+	tx, err := client.BeginTx(ctx, nil)
+	if err != nil {
+		return err
+	}
+
+	// Map to track category names and their IDs
+	categoryIDs := make(map[string]int)
+
+	// Insert categories
+	for _, category := range categories {
+		var parentID *int
+		if category.ParentCategory != nil {
+			pid, exists := categoryIDs[category.ParentCategory.Name]
+			if !exists {
+				return fmt.Errorf("parent category not found: %s", category.ParentCategory.Name)
+			}
+			parentID = &pid
+		}
+
+		var categoryID int
+		query := "INSERT INTO category (name, parent_category_id) VALUES ($1, $2) RETURNING id"
+		err := tx.QueryRowContext(ctx, query, category.Name, parentID).Scan(&categoryID)
+		if err != nil {
+			err := tx.Rollback()
+			if err != nil {
+				return err
+			}
+			return err
+		}
+
+		categoryIDs[category.Name] = categoryID
+	}
+
+	// Commit the transaction
+	if err := tx.Commit(); err != nil {
+		return err
+	}
+
+	return nil
+}
