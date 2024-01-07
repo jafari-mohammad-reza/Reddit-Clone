@@ -21,7 +21,7 @@ CREATE INDEX idx_user_username ON "user" ("username");
 CREATE INDEX idx_user_email ON "user" ("email");
 CREATE TABLE IF NOT EXISTS category (
                                         id SERIAL PRIMARY KEY,
-                                        name VARCHAR(255) NOT NULL,
+                                        name VARCHAR(255) NOT NULL UNIQUE ,
                                         parent_category_id INTEGER NULL,
                                         FOREIGN KEY (parent_category_id) REFERENCES category(id)
 );

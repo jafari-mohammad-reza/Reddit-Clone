@@ -9,6 +9,6 @@ import (
 func main() {
 	cfg := config.GetConfig()
 	lg := custome_logger.NewLogger(cfg)
-	src.InitApp(cfg , lg)
+	src.InitApp(cfg, lg)
 	lg.Info(custome_logger.General, custome_logger.Startup, "Application started", nil)
 }

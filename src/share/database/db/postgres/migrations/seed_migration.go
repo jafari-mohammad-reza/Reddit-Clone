@@ -17,6 +17,10 @@ func SeedData() error {
 	if err != nil {
 		return err
 	}
+	err = seedCategories(client)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
