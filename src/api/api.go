@@ -14,6 +14,7 @@ import (
 
 var logger = custome_logger.NewLogger(config.GetConfig())
 var apiGroup *gin.RouterGroup
+
 func InitServer(cfg *config.Config) {
 	gin.SetMode(cfg.Server.RunMode)
 	r := gin.New()
@@ -34,9 +35,8 @@ func registerRoutes(r *gin.Engine, cfg *config.Config) {
 	v1.Use(middlewares.LoggerMiddleware(logger))
 	limiter := middlewares.NewLimmiterMiddlware(cfg)
 	v1.Use(limiter.RateLimiter())
+	v1.Use(middlewares.ResponseFormatterMiddleware())
 }
-
-
 
 func registerSwagger(r *gin.Engine, cfg *config.Config) {
 	docs.SwaggerInfo.Title = "Reddit Clone"
