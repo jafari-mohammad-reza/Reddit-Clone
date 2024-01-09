@@ -13,7 +13,7 @@ RUN go mod download
 COPY . .
 RUN go install github.com/cespare/reflex@latest
 
-EXPOSE 5050
+EXPOSE 80/tcp
 
 
-CMD helltion\Reddit-Clone\ go run main.go
+CMD reflex -c "go run ./ main.go" --start-service

@@ -10,85 +10,85 @@ services:
       - "5050:5050"
     volumes:
       - .:/app
-    depends_on:
-      - mongodb
-      - postgres
-      - redis
-      - rabbitmq
+#    depends_on:
+#      - mongodb
+#      - postgres
+#      - redis
+#      - rabbitmq
     networks:
       - reddit_clone_network
 
-  mongodb:
-    image: mongo:focal
-    container_name: mongodb_container
-    ports:
-      - "27017:27017"
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=admin
-      - MONGO_INITDB_DATABASE=reddit-clone
-    volumes:
-      - mongodb:/data/db
-    networks:
-      - reddit_clone_network
-
-  redis:
-    image: redis:latest
-    container_name: redis_container
-    ports:
-      - "6380:6379"
-    volumes:
-      - redis:/etc/redis
-    networks:
-      - reddit_clone_network
-
-  postgres:
-    image: postgres
-    container_name: postgres_container
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: reddit-clone
-    volumes:
-      - postgres:/data/postgres
-      - ./src/share/database/db/postgres/queries:/docker-entrypoint-initdb.d
-    ports:
-      - "5432:5432"
-    restart: unless-stopped
-    networks:
-      - reddit_clone_network
-
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin_container
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    volumes:
-      - pgadmin:/var/lib/pgadmin
-    ports:
-      - "8090:80"
-    restart: unless-stopped
-    depends_on:
-      - postgres
-    networks:
-      - reddit_clone_network
-
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
-    container_name: rabbitmq_container
-    ports:
-      - 5672:5672
-      - 15672:15672
-    environment:
-      RABBITMQ_DEFAULT_USER: admin
-      RABBITMQ_DEFAULT_PASS: admin
-    volumes:
-      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
-    restart: unless-stopped
-    networks:
-      - reddit_clone_network
+#  mongodb:
+#    image: mongo:focal
+#    container_name: mongodb_container
+#    ports:
+#      - "27017:27017"
+#    environment:
+#      - MONGO_INITDB_ROOT_USERNAME=admin
+#      - MONGO_INITDB_ROOT_PASSWORD=admin
+#      - MONGO_INITDB_DATABASE=reddit-clone
+#    volumes:
+#      - mongodb:/data/db
+#    networks:
+#      - reddit_clone_network
+#
+#  redis:
+#    image: redis:latest
+#    container_name: redis_container
+#    ports:
+#      - "6380:6379"
+#    volumes:
+#      - redis:/etc/redis
+#    networks:
+#      - reddit_clone_network
+#
+#  postgres:
+#    image: postgres
+#    container_name: postgres_container
+#    environment:
+#      POSTGRES_USER: admin
+#      POSTGRES_PASSWORD: admin
+#      POSTGRES_DB: reddit-clone
+#    volumes:
+#      - postgres:/data/postgres
+#      - ./src/share/database/db/postgres/queries:/docker-entrypoint-initdb.d
+#    ports:
+#      - "5432:5432"
+#    restart: unless-stopped
+#    networks:
+#      - reddit_clone_network
+#
+#  pgadmin:
+#    image: dpage/pgadmin4
+#    container_name: pgadmin_container
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
+#      PGADMIN_DEFAULT_PASSWORD: admin
+#    volumes:
+#      - pgadmin:/var/lib/pgadmin
+#    ports:
+#      - "8090:80"
+#    restart: unless-stopped
+#    depends_on:
+#      - postgres
+#    networks:
+#      - reddit_clone_network
+#
+#  rabbitmq:
+#    image: rabbitmq:3-management-alpine
+#    container_name: rabbitmq_container
+#    ports:
+#      - 5672:5672
+#      - 15672:15672
+#    environment:
+#      RABBITMQ_DEFAULT_USER: admin
+#      RABBITMQ_DEFAULT_PASS: admin
+#    volumes:
+#      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+#      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+#    restart: unless-stopped
+#    networks:
+#      - reddit_clone_network
 
 networks:
   reddit_clone_network:
