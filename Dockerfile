@@ -1,8 +1,5 @@
 
-FROM golang:1.21.4 AS dev
-ENV GOPROXY=https://goproxy.io,direct
-ENV GOPATH /go
-ENV PATH $PATH:$GOPATH/bin
+FROM golang:1.21.5 AS dev
 
 WORKDIR /app
 
@@ -21,10 +18,8 @@ EXPOSE 5050
 
 ENTRYPOINT ["make"]
 CMD ["dev"]
-FROM golang:1.21.4 AS prod
-ENV GOPROXY=https://goproxy.io,direct
-ENV GOPATH /go
-ENV PATH $PATH:$GOPATH/bin
+FROM golang:1.21.5 AS prod
+
 
 WORKDIR /app
 
@@ -37,7 +32,7 @@ RUN go mod download
 COPY . .
 
 
-EXPOSE ${PORT}
+EXPOSE 5050
 
 
 ENTRYPOINT ["make"]

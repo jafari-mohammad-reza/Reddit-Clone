@@ -1,4 +1,4 @@
-package queue
+cdpackage queue
 
 import (
 	"fmt"
