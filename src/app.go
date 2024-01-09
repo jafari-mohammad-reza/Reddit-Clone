@@ -1,14 +1,19 @@
 package src
 
 import (
-	"github.com/reddit-clone/src/api"
-	userdomain "github.com/reddit-clone/src/domains/user-domain"
-	"github.com/reddit-clone/src/share/config"
-	"github.com/reddit-clone/src/share/database/cache"
-	"github.com/reddit-clone/src/share/database/db/postgres"
-	"github.com/reddit-clone/src/share/database/db/postgres/migrations"
-	"github.com/reddit-clone/src/share/pkg/custome_logger"
-	"github.com/reddit-clone/src/share/pkg/queue"
+	"Reddit-Clone/src/share/database/cache"
+	"Reddit-Clone/src/share/database/db/postgres"
+	"Reddit-Clone/src/share/database/db/postgres/migrations"
+	//"github.com/reddit-clone/src/api"
+	"Reddit-Clone/src/api"
+	userdomain "Reddit-Clone/src/domains/user-domain"
+	"Reddit-Clone/src/share/config"
+	//"github.com/reddit-clone/src/share/database/cache"
+	//"github.com/reddit-clone/src/share/database/db/postgres"
+	//"github.com/reddit-clone/src/share/database/db/postgres/migrations"
+	//"github.com/reddit-clone/src/share/pkg/custome_logger"
+	"Reddit-Clone/src/share/pkg/custome_logger"
+	//"github.com/reddit-clone/src/share/pkg/queue"
 )
 
 type AppModule struct {
