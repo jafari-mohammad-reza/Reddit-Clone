@@ -1,8 +1,6 @@
 package src
 
-import (
-	"Reddit-Clone/src/api"
-)
+import "Reddit-Clone/src/api"
 
 func InitApp(PORT int) {
 
