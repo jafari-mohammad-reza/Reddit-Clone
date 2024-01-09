@@ -16,24 +16,4 @@ RUN go install github.com/cespare/reflex@latest
 EXPOSE 5050
 
 
-ENTRYPOINT ["make"]
-CMD ["dev"]
-FROM golang:1.21.5 AS prod
-
-
-WORKDIR /app
-
-
-COPY go.mod go.sum /app/
-
-RUN go mod download
-
-
-COPY . .
-
-
-EXPOSE 5050
-
-
-
-CMD "\\wsl$\Ubuntu\home\helltion\Reddit-Clone\go run main.go"
+CMD helltion\Reddit-Clone\ go run main.go
