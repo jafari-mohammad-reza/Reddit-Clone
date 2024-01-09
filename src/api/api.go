@@ -15,14 +15,13 @@ import (
 var logger = custome_logger.NewLogger(config.GetConfig())
 var apiGroup *gin.RouterGroup
 
-func InitServer(cfg *config.Config) {
+func InitServer() {
 	gin.SetMode(cfg.Server.RunMode)
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
-	registerRoutes(r, cfg)
-	registerSwagger(r, cfg)
-	logger.Info(custome_logger.General, custome_logger.Startup, "Server started", nil)
-	r.Run(fmt.Sprintf(":%s", cfg.Server.InternalPort))
+	registerRoutes(r)
+	registerSwagger(r)
+	r.Run(fmt.Sprintf(":%s", 5052))
 }
 
 func GetApiRoute() *gin.RouterGroup {

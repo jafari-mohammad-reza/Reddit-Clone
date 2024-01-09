@@ -7,12 +7,7 @@ import (
 	//"github.com/reddit-clone/src/api"
 	"Reddit-Clone/src/api"
 	userdomain "Reddit-Clone/src/domains/user-domain"
-	"Reddit-Clone/src/share/config"
-	//"github.com/reddit-clone/src/share/database/cache"
-	//"github.com/reddit-clone/src/share/database/db/postgres"
-	//"github.com/reddit-clone/src/share/database/db/postgres/migrations"
-	//"github.com/reddit-clone/src/share/pkg/custome_logger"
-	"Reddit-Clone/src/share/pkg/custome_logger"
+
 	//"github.com/reddit-clone/src/share/pkg/queue"
 )
 
@@ -20,13 +15,13 @@ type AppModule struct {
 	UserDomain *userdomain.UserDomain
 }
 
-func InitApp(cfg *config.Config, lg custome_logger.Logger) {
+func InitApp() {
 	//initDb(cfg, lg)
 	//queue.InitRabbitMq(cfg, lg)
 	//defer queue.CloseRabbitConnection(lg)
 	//defer queue.CloseRabbitChanel(lg)
-	api.InitServer(cfg)
-	userdomain.NewUserDomain()
+	api.InitServer()
+	//userdomain.NewUserDomain()
 }
 
 //func initDb(cfg *config.Config, lg custome_logger.Logger) {
