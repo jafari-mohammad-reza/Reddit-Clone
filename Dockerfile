@@ -24,7 +24,7 @@ FROM golang:1.21.5 AS prod
 WORKDIR /app
 
 
-COPY go.mod go.sum .
+COPY go.mod go.sum /app/
 
 RUN go mod download
 
@@ -35,5 +35,5 @@ COPY . .
 EXPOSE 5050
 
 
-ENTRYPOINT ["make"]
-CMD ["run"]
+
+CMD "\\wsl$\Ubuntu\home\helltion\Reddit-Clone\go run main.go"
