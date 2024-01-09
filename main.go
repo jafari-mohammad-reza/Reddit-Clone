@@ -5,8 +5,7 @@ import (
 )
 
 func main() {
-	//cfg := config.GetConfig()
-	//lg := custome_logger.NewLogger()
-	src.InitApp()
-	//lg.Info(custome_logger.General, custome_logger.Startup, "Application started", nil)
+
+	src.InitApp(5052)
+
 }
