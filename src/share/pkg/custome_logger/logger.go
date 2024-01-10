@@ -1,7 +1,5 @@
 package custome_logger
 
-import "Reddit-Clone/src/share/config"
-
 type Logger interface {
 	Init()
 
@@ -21,6 +19,6 @@ type Logger interface {
 	Fatalf(template string, args ...interface{})
 }
 
-func NewLogger(cfg *config.Config) Logger {
-	return newZapLogger(cfg)
-}
+//func NewLogger(cfg *config.Config) Logger {
+//	return newZapLogger(cfg)
+//}

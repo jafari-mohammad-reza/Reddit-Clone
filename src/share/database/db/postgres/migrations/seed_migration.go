@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/reddit-clone/src/share/common"
-	"github.com/reddit-clone/src/share/database/db/models"
-	"github.com/reddit-clone/src/share/database/db/postgres"
+	"Reddit-Clone/src/share/common"
+	"Reddit-Clone/src/share/database/db/models"
+	"Reddit-Clone/src/share/database/db/postgres"
 )
 
 func SeedData() error {

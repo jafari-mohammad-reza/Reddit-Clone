@@ -3,8 +3,8 @@ services:
   api:
     container_name: reddit_clone
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: ./Reddit-Clone/Dockerfile
       target: dev
     ports:
       - "5050:5050"

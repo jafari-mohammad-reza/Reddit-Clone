@@ -1,9 +1,9 @@
 package db
 
 import (
+	"Reddit-Clone/src/share/config"
 	"context"
 	"fmt"
-	"github.com/reddit-clone/src/share/config"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"time"

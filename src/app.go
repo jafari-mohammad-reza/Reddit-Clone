@@ -5,7 +5,7 @@ import (
 	//"Reddit-Clone/src/share/database/db/postgres"
 	//"Reddit-Clone/src/share/database/db/postgres/migrations"
 	//"github.com/reddit-clone/src/api"
-	"Reddit-Clone/src/api"
+	api "Reddit-Clone/src/api"
 	//"github.com/reddit-clone/src/share/pkg/queue"
 )
 
@@ -13,12 +13,12 @@ import (
 //	UserDomain *userdomain.UserDomain
 //}
 
-func InitApp() {
+func InitApp(PORT int) {
 	//initDb(cfg, lg)
 	//queue.InitRabbitMq(cfg, lg)
 	//defer queue.CloseRabbitConnection(lg)
 	//defer queue.CloseRabbitChanel(lg)
-	api.InitServer()
+	api.InitServer(PORT)
 	//userdomain.NewUserDomain()
 }
 

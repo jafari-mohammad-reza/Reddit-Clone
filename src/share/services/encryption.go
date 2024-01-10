@@ -8,7 +8,7 @@ import (
 	"io"
 	"log"
 
-	"github.com/reddit-clone/src/share/config"
+	"Reddit-Clone/src/share/config"
 )
 
 type EncryptionService struct {

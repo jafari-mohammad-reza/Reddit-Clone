@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"time"
 
+	"Reddit-Clone/src/share/config"
+	"Reddit-Clone/src/share/pkg/custome_logger"
 	_ "github.com/lib/pq"
-	"github.com/reddit-clone/src/share/config"
-	"github.com/reddit-clone/src/share/pkg/custome_logger"
 )
 
 var pgClient *sql.DB
