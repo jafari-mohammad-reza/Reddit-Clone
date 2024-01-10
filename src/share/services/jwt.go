@@ -1,8 +1,8 @@
 package services
 
 import (
+	"Reddit-Clone/src/share/config"
 	"github.com/golang-jwt/jwt"
-	"github.com/reddit-clone/src/share/config"
 	"time"
 )
 

@@ -1,6 +1,8 @@
 package subreddit_domain
 
-import "github.com/reddit-clone/src/domains/subreddit-domain/category"
+import (
+	"Reddit-Clone/src/domains/subreddit-domain/category"
+)
 
 type SubredditDomain struct {
 	categoryModule *category.CategoryModule

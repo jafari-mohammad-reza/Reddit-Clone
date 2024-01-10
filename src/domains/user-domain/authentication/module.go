@@ -1,8 +1,8 @@
 package authentication
 
 import (
-	"github.com/reddit-clone/src/api"
-	"github.com/reddit-clone/src/share/config"
+	"Reddit-Clone/src/api"
+	"Reddit-Clone/src/share/config"
 )
 
 type AuthenticationModule struct {

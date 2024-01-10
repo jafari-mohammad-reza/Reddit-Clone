@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
+	"Reddit-Clone/src/share/dto"
 	"github.com/gin-gonic/gin"
-	"github.com/reddit-clone/src/share/dto"
 )
 
 type SubredditController struct {

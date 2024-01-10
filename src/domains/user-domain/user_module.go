@@ -1,6 +1,8 @@
 package user_domain
 
-import "github.com/reddit-clone/src/domains/user-domain/authentication"
+import (
+	"Reddit-Clone/src/domains/user-domain/authentication"
+)
 
 type UserDomain struct {
 	authModule *authentication.AuthenticationModule

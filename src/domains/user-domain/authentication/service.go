@@ -1,6 +1,7 @@
 package authentication
 
-import "github.com/reddit-clone/src/share/config"
+import "Reddit-Clone/src/share/config"
+
 type AuthenticationService struct {
 	cfg *config.Config
 }

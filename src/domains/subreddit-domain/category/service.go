@@ -1,11 +1,10 @@
 package category
 
 import (
-	"github.com/reddit-clone/src/share/config"
-	"github.com/reddit-clone/src/share/database/cache"
-	"github.com/reddit-clone/src/share/pkg/custome_logger"
-	"github.com/reddit-clone/src/share/services"
-	"github.com/redis/go-redis/v9"
+	"Reddit-Clone/src/share/config"
+	"Reddit-Clone/src/share/database/cache"
+	"Reddit-Clone/src/share/pkg/custome_logger"
+	"Reddit-Clone/src/share/services"
 )
 
 type CategoryService struct {

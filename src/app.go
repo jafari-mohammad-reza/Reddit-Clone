@@ -6,14 +6,12 @@ import (
 	//"Reddit-Clone/src/share/database/db/postgres/migrations"
 	//"github.com/reddit-clone/src/api"
 	"Reddit-Clone/src/api"
-	userdomain "Reddit-Clone/src/domains/user-domain"
-
 	//"github.com/reddit-clone/src/share/pkg/queue"
 )
 
-type AppModule struct {
-	UserDomain *userdomain.UserDomain
-}
+//type AppModule struct {
+//	UserDomain *userdomain.UserDomain
+//}
 
 func InitApp() {
 	//initDb(cfg, lg)

@@ -1,9 +1,9 @@
-cdpackage queue
+package queue
 
 import (
+	"Reddit-Clone/src/share/config"
+	"Reddit-Clone/src/share/pkg/custome_logger"
 	"fmt"
-	"github.com/reddit-clone/src/share/config"
-	"github.com/reddit-clone/src/share/pkg/custome_logger"
 	"github.com/streadway/amqp"
 )
 

@@ -1,8 +1,8 @@
 package category
 
 import (
+	"Reddit-Clone/src/share/config"
 	"github.com/reddit-clone/src/api"
-	"github.com/reddit-clone/src/share/config"
 )
 
 type CategoryModule struct {

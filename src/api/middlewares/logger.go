@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"time"
 
+	"Reddit-Clone/src/api/helper"
+	"Reddit-Clone/src/share/pkg/custome_logger"
 	"github.com/gin-gonic/gin"
-	api "github.com/reddit-clone/src/api/helper"
-	"github.com/reddit-clone/src/share/pkg/custome_logger"
 )
 
 func LoggerMiddleware(lg custome_logger.Logger) gin.HandlerFunc {

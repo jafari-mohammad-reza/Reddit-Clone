@@ -94,8 +94,8 @@ networks:
   reddit_clone_network:
     driver: bridge
 
-volumes:
-  mongodb:
-  redis:
-  postgres:
-  pgadmin:
+#volumes:
+#  mongodb:
+#  redis:
+#  postgres:
+#  pgadmin:

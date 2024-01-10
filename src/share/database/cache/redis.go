@@ -6,9 +6,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/reddit-clone/src/share/config"
-	"github.com/reddit-clone/src/share/pkg/custome_logger"
-	"github.com/redis/go-redis/v9"
+	"Reddit-Clone/src/share/config"
+	"Reddit-Clone/src/share/pkg/custome_logger"
 )
 
 var redisClient *redis.Client

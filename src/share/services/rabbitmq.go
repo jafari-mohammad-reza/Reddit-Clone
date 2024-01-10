@@ -1,10 +1,11 @@
 package services
 
 import (
+	"Reddit-Clone/src/share/config"
+	"Reddit-Clone/src/share/pkg/custome_logger"
+	"Reddit-Clone/src/share/pkg/queue"
 	"fmt"
-	"github.com/reddit-clone/src/share/config"
-	"github.com/reddit-clone/src/share/pkg/custome_logger"
-	"github.com/reddit-clone/src/share/pkg/queue"
+
 	"github.com/streadway/amqp"
 )
 

@@ -1,11 +1,10 @@
 package custome_logger
 
 import (
+	"Reddit-Clone/src/share/config"
 	"fmt"
-	"github.com/reddit-clone/src/share/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	"gopkg.in/natefinch/lumberjack.v2"
 	"os"
 	"sync"
 	"time"

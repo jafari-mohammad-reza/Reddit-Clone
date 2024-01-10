@@ -1,13 +1,13 @@
 package middlewares
 
 import (
+	"Reddit-Clone/src/share/dto"
 	"encoding/json"
 	"net/http"
 	"time"
 
+	api "Reddit-Clone/src/api/helper"
 	"github.com/gin-gonic/gin"
-	api "github.com/reddit-clone/src/api/helper"
-	"github.com/reddit-clone/src/share/dto"
 )
 
 func ResponseFormatterMiddleware() gin.HandlerFunc {

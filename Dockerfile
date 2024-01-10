@@ -13,7 +13,7 @@ RUN go mod download
 COPY . .
 RUN go install github.com/cespare/reflex@latest
 
-EXPOSE 80/tcp
+EXPOSE 5050
 
 
-CMD reflex -c "go run ./ main.go" --start-service
+CMD reflex -g "*.go" go run main.go --start-service

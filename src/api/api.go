@@ -1,26 +1,28 @@
 package api
 
 import (
+	"Reddit-Clone/docs"
+	"Reddit-Clone/src/api/middlewares"
+	"Reddit-Clone/src/share/config"
 	"fmt"
 
-	"github.com/gin-gonic/gin"
-	"github.com/reddit-clone/docs"
-	"github.com/reddit-clone/src/api/middlewares"
-	"github.com/reddit-clone/src/share/config"
-	"github.com/reddit-clone/src/share/pkg/custome_logger"
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
+	//"github.com/reddit-clone/docs"
+	//"github.com/reddit-clone/src/api/middlewares"
+	//"github.com/reddit-clone/src/share/config"
+	//"github.com/reddit-clone/src/share/pkg/custome_logger"
+	//swaggerFiles "github.com/swaggo/files"
+	//ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-var logger = custome_logger.NewLogger(config.GetConfig())
-var apiGroup *gin.RouterGroup
+//var logger = custome_logger.NewLogger(config.GetConfig())
+//var apiGroup *gin.RouterGroup
 
 func InitServer() {
 	gin.SetMode(cfg.Server.RunMode)
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
-	registerRoutes(r)
-	registerSwagger(r)
+	//registerRoutes(r)
+	//registerSwagger(r)
 	r.Run(fmt.Sprintf(":%s", 5052))
 }
 
