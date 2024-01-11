@@ -1,7 +1,7 @@
 
-FROM golang:1.21.5-alpine AS dev
+FROM golang:1.21.5 AS dev
 ENV GOPROXY=https://goproxy.io,direct
-ENV GOPATH /go
+ENV GOPATH e/helltion/sdk/go1.21.5
 ENV PATH $PATH:$GOPATH/bin
 
 WORKDIR /app
