@@ -1,17 +1,17 @@
 
 FROM golang:1.21.5 AS dev
 
-RUN export PATH=$PATH:/bin:/usr/bin
-
 ENV GOPROXY=https://goproxy.io,direct
-ENV GOPATH=/home/helltion/go:/home/helltion/sdk/go1.21.5
+ENV GOPATH /go
 ENV PATH $PATH:$GOPATH/bin
 
 WORKDIR /app
 
-
-COPY go.mod go.sum /home/helltion/Reddit-Clone/
+#/home/helltion/Reddit-Clone/
+COPY go.mod go.sum ./
 RUN go mod download
+
+
 
 
 COPY . .

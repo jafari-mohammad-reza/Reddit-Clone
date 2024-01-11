@@ -5,6 +5,7 @@ services:
     build:
       context: ..
       dockerfile: ./Reddit-Clone/Dockerfile
+
       target: dev
     ports:
       - "5050:5050"
@@ -15,8 +16,8 @@ services:
 #      - postgres
 #      - redis
 #      - rabbitmq
-    networks:
-      - reddit_clone_network
+#    networks:
+#      - reddit_clone_network
 
 #  mongodb:
 #    image: mongo:focal
