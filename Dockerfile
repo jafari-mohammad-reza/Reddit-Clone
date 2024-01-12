@@ -1,7 +1,7 @@
 
 FROM golang:1.21.5 AS dev
 ENV GOPROXY=https://goproxy.io,direct
-ENV GOPATH /home/helltion/go
+ENV GOPATH /go
 ENV PATH $PATH:$GOPATH/bin
 
 WORKDIR /app
