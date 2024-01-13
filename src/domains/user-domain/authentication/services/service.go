@@ -1,6 +1,8 @@
 package authentication
 
-import "github.com/reddit-clone/src/share/config"
+import (
+	"github.com/reddit-clone/src/share/config"
+)
 type AuthenticationService struct {
 	cfg *config.Config
 }
@@ -10,3 +12,4 @@ func NewAuthenticationService(cfg *config.Config) *AuthenticationService {
 		cfg,
 	}
 }
+

@@ -1,4 +1,4 @@
-package auth_enum
+package authentication
 
 type ErrorMessage string
 const (

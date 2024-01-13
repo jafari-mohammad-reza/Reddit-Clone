@@ -29,7 +29,8 @@ ENV PATH $PATH:$GOPATH/bin
 WORKDIR /app
 
 
-COPY go.mod go.sum .
+COPY go.mod  .
+COPY go.sum . 
 
 RUN go mod download
 

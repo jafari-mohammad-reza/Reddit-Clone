@@ -2,12 +2,13 @@ package authentication
 
 import (
 	"github.com/reddit-clone/src/api"
+	authentication "github.com/reddit-clone/src/domains/user-domain/authentication/services"
 	"github.com/reddit-clone/src/share/config"
 )
 
 type AuthenticationModule struct {
 	cfg        *config.Config
-	service    *AuthenticationService
+	service    *authentication.AuthenticationService
 	controller *AuthenticationController
 }
 
@@ -18,7 +19,7 @@ func initRoutes(c *AuthenticationController) {
 }
 func NewAuthentionModule() *AuthenticationModule {
 	cfg := config.GetConfig()
-	service := NewAuthenticationService(cfg)
+	service := authentication.NewAuthenticationService(cfg)
 	controller := NewAuthenticationController(cfg, service)
 	initRoutes(controller)
 	return &AuthenticationModule{

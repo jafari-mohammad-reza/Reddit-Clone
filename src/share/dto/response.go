@@ -18,3 +18,4 @@ type ErrorResponse struct {
 	Path         string `json:"path"`
 	BaseResponse
 }
+
