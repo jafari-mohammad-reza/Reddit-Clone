@@ -21,7 +21,9 @@ func InitApp(cfg *config.Config, lg custome_logger.Logger) {
 	defer queue.CloseRabbitConnection(lg)
 	defer queue.CloseRabbitChanel(lg)
 	api.InitServer(cfg)
-	userdomain.NewUserDomain()
+	
+
+	
 }
 
 func initDb(cfg *config.Config, lg custome_logger.Logger) {

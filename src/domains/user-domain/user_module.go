@@ -1,16 +1,19 @@
 package user_domain
 
 import (
-	authentication "github.com/reddit-clone/src/domains/user-domain/authentication"
+	"github.com/gin-gonic/gin"
+	"github.com/reddit-clone/src/domains/user-domain/authentication"
 )
 
 type UserDomain struct {
 	authModule *authentication.AuthenticationModule
 }
 
-func NewUserDomain() *UserDomain {
-	authModule := authentication.NewAuthentionModule()
+func NewUserDomain(r *gin.RouterGroup) *UserDomain {
+	authModule := authentication.NewAuthentionModule(r)
+	
 	return &UserDomain{
 		authModule,
 	}
 }
+

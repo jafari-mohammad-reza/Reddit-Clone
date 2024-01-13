@@ -1,22 +1,20 @@
 version: "3.8"
 services:
-  api:
-    container_name: reddit_clone
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: dev
-    ports:
-      - "5050:5050"
-    volumes:
-      - .:/app
-    depends_on:
-      - mongodb
-      - postgres
-      - redis
-      - rabbitmq
-    networks:
-      - reddit_clone_network
+  # api:
+  #   container_name: reddit_clone
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #     target: dev
+  #   ports:
+  #     - "5050:5050"
+  #   volumes:
+  #     - .:/app
+  #   depends_on:
+  #     - mongodb
+  #     - postgres
+  #     - redis
+  #     - rabbitmq
 
   mongodb:
     image: mongo:focal
@@ -29,18 +27,14 @@ services:
       - MONGO_INITDB_DATABASE=reddit-clone
     volumes:
       - mongodb:/data/db
-    networks:
-      - reddit_clone_network
 
   redis:
     image: redis:latest
     container_name: redis_container
     ports:
-      - "6380:6379"
+      - "6379:6379"
     volumes:
       - redis:/etc/redis
-    networks:
-      - reddit_clone_network
 
   postgres:
     image: postgres
@@ -55,8 +49,6 @@ services:
     ports:
       - "5432:5432"
     restart: unless-stopped
-    networks:
-      - reddit_clone_network
 
   pgadmin:
     image: dpage/pgadmin4
@@ -71,8 +63,6 @@ services:
     restart: unless-stopped
     depends_on:
       - postgres
-    networks:
-      - reddit_clone_network
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
@@ -87,12 +77,6 @@ services:
       - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
       - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     restart: unless-stopped
-    networks:
-      - reddit_clone_network
-
-networks:
-  reddit_clone_network:
-    driver: bridge
 
 volumes:
   mongodb:

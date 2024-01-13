@@ -7,7 +7,7 @@ import (
 	"github.com/reddit-clone/src/share/dto"
 )
 
-func GenerateSuccessResponse[T any](response T, status *int, metaData interface{}) *dto.SuccessResponse[T] {
+func GenerateSuccessResponse[T any](response T, status *int, metaData *interface{}) *dto.SuccessResponse[T] {
 	var statusCode int
 	if status != nil {
 		statusCode = *status

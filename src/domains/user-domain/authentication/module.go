@@ -1,7 +1,7 @@
 package authentication
 
 import (
-	"github.com/reddit-clone/src/api"
+	"github.com/gin-gonic/gin"
 	authentication "github.com/reddit-clone/src/domains/user-domain/authentication/services"
 	"github.com/reddit-clone/src/share/config"
 )
@@ -12,16 +12,15 @@ type AuthenticationModule struct {
 	controller *AuthenticationController
 }
 
-func initRoutes(c *AuthenticationController) {
-	router := api.GetApiRoute()
-	authGroup := router.Group("/auth")
-	authGroup.GET("/login", c.Login)
+func  initRoutes(r *gin.RouterGroup , c *AuthenticationController) {
+	authGroup := r.Group("/auth")
+	authGroup.POST("/login", c.Login)
 }
-func NewAuthentionModule() *AuthenticationModule {
+func NewAuthentionModule(r *gin.RouterGroup) *AuthenticationModule {
 	cfg := config.GetConfig()
 	service := authentication.NewAuthenticationService(cfg)
 	controller := NewAuthenticationController(cfg, service)
-	initRoutes(controller)
+	initRoutes(r,controller)
 	return &AuthenticationModule{
 		cfg,
 		service,
