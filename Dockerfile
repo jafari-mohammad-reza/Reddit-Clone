@@ -21,4 +21,4 @@ EXPOSE 5050
 
 #ENTRYPOINT ["make"]
 #CMD ["dev"]
-CMD /bin/reflex -s -r '\.go' -R '^vendor/.' -R '^_.*' go run main.go
+CMD reflex -s -r '\.go' -R '^vendor/.' -R '^_.*' go run main.go
