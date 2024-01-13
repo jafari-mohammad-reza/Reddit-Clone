@@ -19,5 +19,6 @@ RUN go install github.com/cespare/reflex@latest
 EXPOSE 5050
 
 
-ENTRYPOINT ["make"]
-CMD ["dev"]
+#ENTRYPOINT ["make"]
+#CMD ["dev"]
+CMD reflex -s -r '\.go' -R '^vendor/.' -R '^_.*' go run main.go
