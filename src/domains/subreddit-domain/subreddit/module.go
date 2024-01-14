@@ -1,7 +1,7 @@
 package subreddit
 
 import (
-	"github.com/reddit-clone/src/api"
+	"github.com/gin-gonic/gin"
 	"github.com/reddit-clone/src/share/config"
 )
 
@@ -11,16 +11,15 @@ type SubredditModule struct {
 	service    *SubredditService
 }
 
-func initRoutes(c *SubredditController) {
-	router := api.GetApiRoute()
-	authGroup := router.Group("/category")
-	authGroup.GET("/", c.Categories)
+func initRoutes(r *gin.RouterGroup , c *SubredditController) {
+	authGroup := r.Group("/subreddit")
+	authGroup.GET("/", c.Subreddits)
 }
-func NewSubredditModule() *SubredditModule {
+func NewSubredditModule(r *gin.RouterGroup ) *SubredditModule {
 	cfg := config.GetConfig()
 	service := NewSubredditService(cfg)
 	controller := NewSubredditController(service)
-	initRoutes(controller)
+	initRoutes(r , controller)
 	return &SubredditModule{
 		cfg,
 		controller,

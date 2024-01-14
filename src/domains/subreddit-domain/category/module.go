@@ -1,7 +1,7 @@
 package category
 
 import (
-	"github.com/reddit-clone/src/api"
+	"github.com/gin-gonic/gin"
 	"github.com/reddit-clone/src/share/config"
 )
 
@@ -11,16 +11,15 @@ type CategoryModule struct {
 	service    *CategoryService
 }
 
-func initRoutes(c *CategoryController) {
-	router := api.GetApiRoute()
-	authGroup := router.Group("/category")
+func initRoutes(r *gin.RouterGroup ,  c *CategoryController) {
+	authGroup := r.Group("/category")
 	authGroup.GET("/", c.Categories)
 }
-func NewCategoryModule() *CategoryModule {
+func NewCategoryModule(r *gin.RouterGroup) *CategoryModule {
 	cfg := config.GetConfig()
 	service := NewCategoryService(cfg)
 	controller := NewCategoryController(service)
-	initRoutes(controller)
+	initRoutes(r , controller)
 	return &CategoryModule{
 		cfg,
 		controller,

@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/reddit-clone/docs"
 	"github.com/reddit-clone/src/api/middlewares"
+	subreddit_domain "github.com/reddit-clone/src/domains/subreddit-domain"
 	user_domain "github.com/reddit-clone/src/domains/user-domain"
 	"github.com/reddit-clone/src/share/config"
 	"github.com/reddit-clone/src/share/pkg/custome_logger"
@@ -39,6 +40,7 @@ func registerRoutes(r *gin.Engine, cfg *config.Config)  {
 	v1.Use(limiter.RateLimiter())
 	v1.Use(middlewares.ResponseFormatterMiddleware())
 	user_domain.NewUserDomain(v1)
+	subreddit_domain.NewSubredditDomain(v1)
 }
 
 func registerSwagger(r *gin.Engine, cfg *config.Config) {
