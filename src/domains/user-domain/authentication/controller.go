@@ -1,7 +1,6 @@
 package authentication
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -24,7 +23,6 @@ func NewAuthenticationController(cfg *config.Config , service *authentication.Au
 }
 
 func(c *AuthenticationController) Login(ctx *gin.Context) {
-	fmt.Println("HEWLlo")
 	var body  authDto.LoginDto
 	if err:=ctx.BindJSON(&body);err!=nil{
 		status := http.StatusBadRequest 
@@ -44,3 +42,23 @@ func(c *AuthenticationController) Login(ctx *gin.Context) {
 func(c *AuthenticationController) Register(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK , gin.H{})
 }
+
+func(c *AuthenticationController) GithubLogin(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK , gin.H{})
+
+}
+
+func(c *AuthenticationController) GithubVerify(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK , gin.H{})
+}
+
+
+func(c *AuthenticationController) GoogleLogin(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK , gin.H{})
+
+}
+
+func(c *AuthenticationController) GoogleVerify(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK , gin.H{})
+}
+
