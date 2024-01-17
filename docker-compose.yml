@@ -20,7 +20,7 @@ services:
     image: mongo:focal
     container_name: mongodb_container
     ports:
-      - "27017:27017"
+      - "27018:27017"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=admin
@@ -32,7 +32,7 @@ services:
     image: redis:latest
     container_name: redis_container
     ports:
-      - "6379:6379"
+      - "6380:6379"
     volumes:
       - redis:/etc/redis
 
@@ -47,7 +47,7 @@ services:
       - postgres:/data/postgres
       - ./src/share/database/db/postgres/queries:/docker-entrypoint-initdb.d
     ports:
-      - "5432:5432"
+      - "5433:5432"
     restart: unless-stopped
 
   pgadmin:
