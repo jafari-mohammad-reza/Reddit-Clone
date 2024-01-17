@@ -11,6 +11,8 @@ type Config struct {
 	Logger   LoggerConfig
 	JWT      JWTConfig
 	RabbitMq RabbitMqConfig
+	ApiKey ApiKeyConfig
+	Credentials CredentialsConfig
 }
 
 type ServerConfig struct {
@@ -18,6 +20,17 @@ type ServerConfig struct {
 	ExternalPort string
 	RunMode      string
 	RequestLimit string
+	ApiUrl string
+}
+type ApiKeyConfig struct {
+	GithubClientId string
+	GithubClientSecret string
+}
+
+type CredentialsConfig struct {
+	CallBackUrl  string
+ClientID  string
+ClientSecret  string
 }
 
 type LoggerConfig struct {

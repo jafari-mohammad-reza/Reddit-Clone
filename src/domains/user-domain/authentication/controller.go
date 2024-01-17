@@ -7,6 +7,7 @@ import (
 	api "github.com/reddit-clone/src/api/helper"
 	authDto "github.com/reddit-clone/src/domains/user-domain/authentication/dto"
 	authentication "github.com/reddit-clone/src/domains/user-domain/authentication/services"
+
 	"github.com/reddit-clone/src/share/config"
 	"github.com/reddit-clone/src/share/services"
 )
@@ -40,6 +41,25 @@ func(c *AuthenticationController) Login(ctx *gin.Context) {
 }
 
 func(c *AuthenticationController) Register(ctx *gin.Context) {
+	var body  authDto.RegisterDto
+	if err:=ctx.BindJSON(&body);err!=nil{
+		status := http.StatusBadRequest 
+		ctx.JSON(status  , api.GenerateErrorResponse(err, "/auth/register", &status))
+		return 
+	}
+	errChan := make(chan error)
+    go func() {
+        err := c.service.Register(body)
+        errChan <- err
+    }()
+
+    err := <-errChan
+    if err != nil {
+        status := http.StatusBadRequest
+        ctx.JSON(status, api.GenerateErrorResponse(err, "/auth/register", &status))
+        return
+    }
+
 	ctx.JSON(http.StatusOK , gin.H{})
 }
 

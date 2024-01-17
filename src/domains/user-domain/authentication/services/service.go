@@ -18,3 +18,7 @@ func NewAuthenticationService(cfg *config.Config) *AuthenticationService {
 func (s *AuthenticationService) Login(dto authDto.LoginDto)  (*services.JwtAuthToken, error) {
 	return nil , nil
 }
+
+func (s *AuthenticationService) Register(dto authDto.RegisterDto)   error {
+	return nil
+}
