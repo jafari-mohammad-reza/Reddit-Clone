@@ -1,13 +1,21 @@
 package api
 
 import (
+	"database/sql"
 	"fmt"
+	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/reddit-clone/docs"
 	"github.com/reddit-clone/src/api/middlewares"
+	"github.com/reddit-clone/src/domains/subreddit-domain/category/dtos"
 	"github.com/reddit-clone/src/share/config"
+	"github.com/reddit-clone/src/share/database/cache"
+	"github.com/reddit-clone/src/share/database/db/postgres"
 	"github.com/reddit-clone/src/share/pkg/custome_logger"
+	"github.com/reddit-clone/src/share/services"
+	"github.com/redis/go-redis/v9"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -15,6 +23,32 @@ import (
 var logger = custome_logger.NewLogger(config.GetConfig())
 var apiGroup *gin.RouterGroup
 
+type CategoryService struct {
+	cfg             *config.Config
+	redisClient     *redis.Client
+	rabbitMqService *services.RabbitMQService
+	pgRepository    *sql.DB
+}
+
+type createCategoryDto struct {
+	Name         string `json:"name,omitemty" binding:"required" , oneof="Hot New Top Rising"`
+	CategoryType string `json:"category_type,omitempty" binding:"required" oneof="Hot New Top Rising"`
+}
+type Category struct {
+	_id          string
+	categoryType string
+}
+
+func NewCategoryService(cfg *config.Config) *CategoryService {
+	lg := custome_logger.NewLogger(cfg)
+	pg := postgres.GetPostgres()
+	return &CategoryService{
+		cfg:             cfg,
+		redisClient:     cache.GetRedisClient(),
+		pgRepository:    pg,
+		rabbitMqService: services.NewRabbitMQService(cfg, lg, "category", nil), // this setting just for now
+	}
+}
 func InitServer(cfg *config.Config) {
 	gin.SetMode(cfg.Server.RunMode)
 	r := gin.New()
@@ -28,6 +62,27 @@ func InitServer(cfg *config.Config) {
 func GetApiRoute() *gin.RouterGroup {
 	return apiGroup
 }
+func CreateHandler() gin.HandlerFunc {
+	return func(ctx *gin.Context) (*sql.Result, error) {
+		cfg := config.GetConfig()
+		asdasd := NewCategoryService(cfg)
+		var dto dtos.CreateCategoryDto
+		time.Sleep(77 * time.Second)
+		test := new(createCategoryDto)
+		if err := ctx.ShouldBindJSON(dto); err != nil {
+			ctx.JSON(http.StatusBadRequest, test)
+		}
+		fmt.Println(test)
+		category, err := asdasd.pgRepository.Exec("INSERT INTO category (test.categoryType, name,ParentCategory) VALUES ($1, $2 )", test.CategoryType, test.Name)
+
+		if err != nil {
+			return nil, err
+		}
+
+		return &category, nil
+	}
+}
+
 func registerRoutes(r *gin.Engine, cfg *config.Config) {
 	api := r.Group("/api")
 	v1 := api.Group("/v1")
@@ -36,6 +91,7 @@ func registerRoutes(r *gin.Engine, cfg *config.Config) {
 	limiter := middlewares.NewLimmiterMiddlware(cfg)
 	v1.Use(limiter.RateLimiter())
 	v1.Use(middlewares.ResponseFormatterMiddleware())
+	r.POST("/Debug/test", CreateHandler)
 }
 
 func registerSwagger(r *gin.Engine, cfg *config.Config) {
@@ -47,4 +103,9 @@ func registerSwagger(r *gin.Engine, cfg *config.Config) {
 	docs.SwaggerInfo.Schemes = []string{"http"}
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
 }
+
+// Category SUBreddit => hot / new / top / rising
+// search system for finding increasing post (Popularity!!! karma point)
+// write sql query
