@@ -4,18 +4,20 @@ import (
 	"database/sql"
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/reddit-clone/src/domains/subreddit-domain/category"
 	"github.com/reddit-clone/src/domains/subreddit-domain/category/dtos"
+	"github.com/reddit-clone/src/share/config"
 	"github.com/reddit-clone/src/share/database/cache"
 	"github.com/reddit-clone/src/share/database/db/postgres"
 	"github.com/reddit-clone/src/share/services"
 	"github.com/redis/go-redis/v9"
 )
 
+var ctx *gin.Context
+
 type CategoryService struct {
+	cfg             *config.Config
 	redisClient     *redis.Client
 	rabbitMqService *services.RabbitMQService
 	pgRepository    *sql.DB
@@ -24,28 +26,25 @@ type CategoryService struct {
 func NewCategoryService() *CategoryService {
 	pg := postgres.GetPostgres()
 	return &CategoryService{
-		redisClient:     cache.GetRedisClient(),
-		pgRepository:    pg,
-		rabbitMqService: services.NewRabbitMQService(lg, "category", nil), // this setting just for now
+		redisClient:  cache.GetRedisClient(),
+		pgRepository: pg,
 	}
 }
-func CreateHandler(ctx *gin.Context) error {
-	categoryService := category.NewCategoryService()
+func CreateHandler() gin.HandlerFunc {
 
-	asdasd := category.NewCategoryService()
-	var dto dtos.CreateCategoryDto
-	time.Sleep(77 * time.Second)
+	asdasd := NewCategoryService()
 	test := new(dtos.CreateCategoryDto)
-	if err := ctx.ShouldBindJSON(dto); err != nil {
-		ctx.JSON(http.StatusBadRequest, test)
+	if err := ctx.ShouldBindJSON(test); err != nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
 	}
 	fmt.Println(test)
 
-	_, err := categoryService.pgRepository.Exec("INSERT INTO category (test.categoryType, name,ParentCategory) VALUES ($1, $2 )", test.CategoryType, test.Name)
+	_, err := asdasd.pgRepository.Exec("INSERT INTO category (test.categoryType, name,ParentCategory) VALUES ($1, $2 )", test.CategoryType, test.Name)
 
 	if err != nil {
-		return nil, err
-	}
+		ctx.JSON(http.StatusBadGateway, err.Error())
 
+	}
+	ctx.JSON(http.StatusAccepted, &test)
 	return nil
 }

@@ -3,13 +3,10 @@ package api
 import (
 	"database/sql"
 	"fmt"
-	"net/http"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/reddit-clone/docs"
-	"github.com/reddit-clone/src/api/middlewares"
-	"github.com/reddit-clone/src/domains/subreddit-domain/category/dtos"
+	setuproutes "github.com/reddit-clone/src/api/setupRoutes"
 	"github.com/reddit-clone/src/share/config"
 	"github.com/reddit-clone/src/share/database/cache"
 	"github.com/reddit-clone/src/share/database/db/postgres"
@@ -53,7 +50,7 @@ func InitServer(cfg *config.Config) {
 	gin.SetMode(cfg.Server.RunMode)
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
-	registerRoutes(r, cfg)
+	setuproutes.RegisterRoutes(r, cfg)
 	registerSwagger(r, cfg)
 	logger.Info(custome_logger.General, custome_logger.Startup, "Server started", nil)
 	r.Run(fmt.Sprintf(":%s", cfg.Server.InternalPort))
@@ -61,37 +58,6 @@ func InitServer(cfg *config.Config) {
 
 func GetApiRoute() *gin.RouterGroup {
 	return apiGroup
-}
-func CreateHandler() gin.HandlerFunc {
-	return func(ctx *gin.Context) (*sql.Result, error) {
-		cfg := config.GetConfig()
-		asdasd := NewCategoryService(cfg)
-		var dto dtos.CreateCategoryDto
-		time.Sleep(77 * time.Second)
-		test := new(createCategoryDto)
-		if err := ctx.ShouldBindJSON(dto); err != nil {
-			ctx.JSON(http.StatusBadRequest, test)
-		}
-		fmt.Println(test)
-		category, err := asdasd.pgRepository.Exec("INSERT INTO category (test.categoryType, name,ParentCategory) VALUES ($1, $2 )", test.CategoryType, test.Name)
-
-		if err != nil {
-			return nil, err
-		}
-
-		return &category, nil
-	}
-}
-
-func registerRoutes(r *gin.Engine, cfg *config.Config) {
-	api := r.Group("/api")
-	v1 := api.Group("/v1")
-	apiGroup = v1
-	v1.Use(middlewares.LoggerMiddleware(logger))
-	limiter := middlewares.NewLimmiterMiddlware(cfg)
-	v1.Use(limiter.RateLimiter())
-	v1.Use(middlewares.ResponseFormatterMiddleware())
-	r.POST("/Debug/test", CreateHandler)
 }
 
 func registerSwagger(r *gin.Engine, cfg *config.Config) {
