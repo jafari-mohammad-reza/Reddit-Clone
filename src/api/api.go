@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/reddit-clone/docs"
-	"github.com/reddit-clone/src/api/routes"
+	"github.com/reddit-clone/src/domains/routes"
 	"github.com/reddit-clone/src/share/config"
 	"github.com/reddit-clone/src/share/database/cache"
 	"github.com/reddit-clone/src/share/database/db/postgres"

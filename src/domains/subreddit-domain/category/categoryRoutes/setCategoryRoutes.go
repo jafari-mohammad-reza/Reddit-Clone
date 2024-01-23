@@ -8,7 +8,6 @@ import (
 func CategoryRoutes(group *gin.RouterGroup) {
 	categoryRoute := group.Group("category")
 	categoryHandler := category.NewCategoryController()
-
 	categoryRoute.POST("/create", categoryHandler.CreateCategory)
 	return
 }

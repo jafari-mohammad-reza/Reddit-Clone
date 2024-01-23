@@ -3,7 +3,7 @@ package routes
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/reddit-clone/src/api/middlewares"
-	category "github.com/reddit-clone/src/domains/subreddit-domain/categoryRoutes"
+	categoryroutes "github.com/reddit-clone/src/domains/subreddit-domain/category/categoryRoutes"
 	"github.com/reddit-clone/src/share/config"
 )
 
@@ -22,5 +22,5 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 func setupRoutes(server *gin.Engine) {
 	api := server.Group("api")
 
-	category.CategoryRoutes(api)
+	categoryroutes.CategoryRoutes(api)
 }

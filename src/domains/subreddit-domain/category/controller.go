@@ -9,8 +9,6 @@ import (
 	"github.com/reddit-clone/src/share/config"
 )
 
-var ctx *gin.Context
-
 type CategoryController struct {
 	service *CategoryService
 }
@@ -21,7 +19,7 @@ func NewCategoryController() *CategoryController {
 	return &CategoryController{categoryService}
 }
 
-func (c *CategoryController) CreateCategory() gin.HandlerFunc {
+func (c *CategoryController) CreateCategory(ctx *gin.Context) {
 	dto := new(dtos.CreateCategoryDto)
 	parentCategoryIdString := ctx.Params["id"]
 
@@ -34,6 +32,6 @@ func (c *CategoryController) CreateCategory() gin.HandlerFunc {
 		return
 	}
 
-	ctx.JSON(http.StatusCreated, gin.H{"Created": fmt.Sprintf("Category Created With ParentId", parentCategoryId)})
+	ctx.JSON(http.StatusCreated, gin.H{"Created": fmt.Sprintf("Category Created With ParentId", parentCategoryIdString)})
 
 }
