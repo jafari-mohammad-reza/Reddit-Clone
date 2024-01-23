@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/reddit-clone/docs"
-	"github.com/reddit-clone/src/domains/routes"
+	"github.com/reddit-clone/src/api/middlewares"
 	"github.com/reddit-clone/src/share/config"
 	"github.com/reddit-clone/src/share/database/cache"
 	"github.com/reddit-clone/src/share/database/db/postgres"
@@ -50,7 +50,7 @@ func InitServer(cfg *config.Config) {
 	gin.SetMode(cfg.Server.RunMode)
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
-	routes.RegisterRoutes(r, cfg)
+	RegisterRoutes(r, cfg)
 	registerSwagger(r, cfg)
 	logger.Info(custome_logger.General, custome_logger.Startup, "Server started", nil)
 	r.Run(fmt.Sprintf(":%s", cfg.Server.InternalPort))
@@ -69,6 +69,17 @@ func registerSwagger(r *gin.Engine, cfg *config.Config) {
 	docs.SwaggerInfo.Schemes = []string{"http"}
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+}
+
+func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
+
+	// api := r.Group("/api")
+	// apiGroup = v1
+	// v1.Use(middlewares.LoggerMiddleware(logger))
+	limiter := middlewares.NewLimmiterMiddlware(cfg)
+	r.Use(limiter.RateLimiter())
+	r.Use(middlewares.ResponseFormatterMiddleware())
 
 }
 

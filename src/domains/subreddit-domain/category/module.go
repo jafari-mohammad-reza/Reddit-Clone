@@ -14,12 +14,12 @@ type CategoryModule struct {
 func initRoutes(c *CategoryController) {
 	router := api.GetApiRoute()
 	authGroup := router.Group("/category")
-	authGroup.GET("/", c.Categories)
+	authGroup.POST("/create", c.CreateCategory)
 }
 func NewCategoryModule() *CategoryModule {
 	cfg := config.GetConfig()
 	service := NewCategoryService(cfg)
-	controller := NewCategoryController(service)
+	controller := NewCategoryController()
 	initRoutes(controller)
 	return &CategoryModule{
 		cfg,
