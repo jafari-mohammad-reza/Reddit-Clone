@@ -2,7 +2,10 @@ package category
 
 import (
 	"database/sql"
+	"fmt"
+	"net/http"
 
+	"github.com/gin-gonic/gin"
 	"github.com/reddit-clone/src/domains/subreddit-domain/category/dtos"
 	"github.com/reddit-clone/src/share/config"
 	"github.com/reddit-clone/src/share/database/cache"
@@ -11,6 +14,8 @@ import (
 	"github.com/reddit-clone/src/share/services"
 	"github.com/redis/go-redis/v9"
 )
+
+var ctx *gin.Context
 
 type CategoryService struct {
 	cfg             *config.Config
@@ -33,17 +38,22 @@ func NewCategoryService(cfg *config.Config) *CategoryService {
 // Category SUBreddit => hot / new / top / rising
 // search system for finding increasing post (Popularity!!! karma point)
 // write sql query
-type Category struct {
-	_id          string
-	category     *Category
-	categoryType string `json:"category_type,omitempty" binding:"required,currency" oneof="Hot New Top Rising"`
-}
 
-func (s *CategoryService) Create(dto dtos.CreateCategoryDto) (sql.Result, error) {
-	category, err := s.pgRepository.Exec("INSERT INTO category (dto.categoryType, name,ParentCategory ,) VALUES ($1, $2 )", dto.CategoryType, dto.Name)
+func (s *CategoryService) Create(dto dtos.CreateCategoryDto, categoryId string) error {
+
+	fmt.Println(dto)
+
+	ParentCategory := s.pgRepository.QueryRow("SELECT * FROM category WHERE id = $1", categoryId)
+	err := ParentCategory.Scan(&categoryId)
 	if err != nil {
-		return nil, err
+		return err
+	}
+	_, err = s.pgRepository.Exec("INSERT INTO category (test.categoryType, name,ParentCategory) VALUES ($1, $2, $3 )", dto.CategoryType, dto.Name, ParentCategory)
+
+	if err != nil {
+		ctx.JSON(http.StatusBadGateway, err.Error())
+
 	}
 
-	return category, nil
+	return nil
 }

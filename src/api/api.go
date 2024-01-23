@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/reddit-clone/docs"
-	setuproutes "github.com/reddit-clone/src/api/setupRoutes"
+	"github.com/reddit-clone/src/api/routes"
 	"github.com/reddit-clone/src/share/config"
 	"github.com/reddit-clone/src/share/database/cache"
 	"github.com/reddit-clone/src/share/database/db/postgres"
@@ -50,7 +50,7 @@ func InitServer(cfg *config.Config) {
 	gin.SetMode(cfg.Server.RunMode)
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
-	setuproutes.RegisterRoutes(r, cfg)
+	routes.RegisterRoutes(r, cfg)
 	registerSwagger(r, cfg)
 	logger.Info(custome_logger.General, custome_logger.Startup, "Server started", nil)
 	r.Run(fmt.Sprintf(":%s", cfg.Server.InternalPort))
