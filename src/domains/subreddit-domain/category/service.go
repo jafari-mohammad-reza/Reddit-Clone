@@ -48,7 +48,7 @@ func (s *CategoryService) Create(dto dtos.CreateCategoryDto, categoryId string) 
 	if err != nil {
 		return err
 	}
-	_, err = s.pgRepository.Exec("INSERT INTO category (test.categoryType, name,ParentCategory) VALUES ($1, $2, $3 )", dto.CategoryType, dto.Name, ParentCategory)
+	_, err = s.pgRepository.Exec("INSERT INTO category (categoryType, name,ParentCategory) VALUES ($1, $2, $3 )", dto.CategoryType, dto.Name, ParentCategory)
 
 	if err != nil {
 		ctx.JSON(http.StatusBadGateway, err.Error())
