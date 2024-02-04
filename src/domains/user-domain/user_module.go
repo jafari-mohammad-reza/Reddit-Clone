@@ -10,10 +10,9 @@ type UserDomain struct {
 }
 
 func NewUserDomain(r *gin.RouterGroup) *UserDomain {
-	authModule := authentication.NewAuthentionModule(r)
-	
+	authModule := authentication.NewAuthenticationModule(r)
+
 	return &UserDomain{
 		authModule,
 	}
 }
-

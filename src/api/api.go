@@ -8,6 +8,7 @@ import (
 	"github.com/reddit-clone/src/api/middlewares"
 	subreddit_domain "github.com/reddit-clone/src/domains/subreddit-domain"
 	user_domain "github.com/reddit-clone/src/domains/user-domain"
+	"github.com/reddit-clone/src/modules/healthcheck"
 	"github.com/reddit-clone/src/share/config"
 	"github.com/reddit-clone/src/share/pkg/custome_logger"
 	swaggerFiles "github.com/swaggo/files"
@@ -17,7 +18,7 @@ import (
 var logger = custome_logger.NewLogger(config.GetConfig())
 var apiGroup *gin.RouterGroup
 
-func InitServer(cfg *config.Config)  {
+func InitServer(cfg *config.Config) {
 	gin.SetMode(cfg.Server.RunMode)
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
@@ -25,13 +26,13 @@ func InitServer(cfg *config.Config)  {
 	registerSwagger(r, cfg)
 	logger.Info(custome_logger.General, custome_logger.Startup, "Server started", nil)
 	r.Run(fmt.Sprintf(":%s", cfg.Server.InternalPort))
-	
+
 }
 
 func GetApiRoute() *gin.RouterGroup {
 	return apiGroup
 }
-func registerRoutes(r *gin.Engine, cfg *config.Config)  {
+func registerRoutes(r *gin.Engine, cfg *config.Config) {
 	api := r.Group("/api")
 	v1 := api.Group("/v1")
 	apiGroup = v1
@@ -41,6 +42,7 @@ func registerRoutes(r *gin.Engine, cfg *config.Config)  {
 	v1.Use(middlewares.ResponseFormatterMiddleware())
 	user_domain.NewUserDomain(v1)
 	subreddit_domain.NewSubredditDomain(v1)
+	healthcheck.NewHealthCheckModule(v1)
 }
 
 func registerSwagger(r *gin.Engine, cfg *config.Config) {

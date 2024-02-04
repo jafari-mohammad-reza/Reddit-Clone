@@ -12,7 +12,7 @@ type AuthenticationModule struct {
 	controller *AuthenticationController
 }
 
-func  initRoutes(r *gin.RouterGroup , c *AuthenticationController) {
+func initRoutes(r *gin.RouterGroup, c *AuthenticationController) {
 	authGroup := r.Group("/auth")
 	authGroup.POST("/login", c.Login)
 	authGroup.POST("/register", c.Register)
@@ -23,11 +23,11 @@ func  initRoutes(r *gin.RouterGroup , c *AuthenticationController) {
 	googleGroup.POST("/login", c.GoogleLogin)
 	googleGroup.POST("/verify", c.GoogleVerify)
 }
-func NewAuthentionModule(r *gin.RouterGroup) *AuthenticationModule {
+func NewAuthenticationModule(r *gin.RouterGroup) *AuthenticationModule {
 	cfg := config.GetConfig()
 	service := authentication.NewAuthenticationService(cfg)
 	controller := NewAuthenticationController(cfg, service)
-	initRoutes(r,controller)
+	initRoutes(r, controller)
 	return &AuthenticationModule{
 		cfg,
 		service,
